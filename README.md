@@ -6,13 +6,13 @@ I spent 3 hours on this project (i don't have a lot a spare time), it's a pet pr
 So yes the code is ugly, yes i didn't use redux with react, yes the webui is ugly as hell.
 But it's just the beginning so please be gentle and if something is too ugly for you, you can just contribute it ;)
 
-#Run the api and the 
-export SWARMUI_KV_STORE=etcd (etcd, consul, zk)
-export SWARMUI_KV_HOST="192.168.64.2:4001"
-
-swarmui need DOCKER env var to connect to the docker daemon or docker swarm
-
-./swarmui serve
+#Run the api and the webui
+- run npm run build in webui directory
+- export SWARMUI_KV_STORE=etcd (etcd, consul, zk)
+- export SWARMUI_KV_HOST="192.168.64.2:4001"
+- swarmui need DOCKER env var to connect to the docker daemon or docker swarm
+- go build
+- ./swarmui serve
 
 
 #screenshots
