@@ -10,7 +10,7 @@ But it's just the beginning so please be gentle and if something is too ugly for
 
 #Dependencies
 - Use libcompose to handle docker compose files of your projects
-- Use etcd to store docker compose files of your projects
+- Use etcd or consul or zk (use libkv of docker) to store docker compose files of your projects
 - Docker or Docker Swarm obviously
 
 #Run the api and the webui
