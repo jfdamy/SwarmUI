@@ -1,10 +1,17 @@
 # swarmui
 
-Swarm UI is a toolkit with an Api (REST), a WebUI and a autoscaling service for docker/docker swarm
+Swarm UI is a toolkit with an Api (REST), a WebUI and a autoscaling service for Docker/Docker Swarm
+
+The api use docker compose file to describe services for a project
 
 I spent 3 hours on this project (i don't have a lot a spare time), it's a pet project.
 So yes the code is ugly, yes i didn't use redux with react, yes the webui is ugly as hell.
 But it's just the beginning so please be gentle and if something is too ugly for you, you can just contribute it ;)
+
+#Dependencies
+- Use libcompose to handle docker compose files of your projects
+- Use etcd to store docker compose files of your projects
+- Docker or Docker Swarm obviously
 
 #Run the api and the webui
 - run npm run build in webui directory
