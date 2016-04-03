@@ -1,3 +1,5 @@
+[![GoDoc](https://godoc.org/github.com/jfdamy/SwarmUI?status.svg)](https://godoc.org/github.com/jfdamy/SwarmUI)
+
 # swarmui
 
 Swarm UI is a toolkit with an Api (REST), a WebUI and a autoscaling service for Docker/Docker Swarm
