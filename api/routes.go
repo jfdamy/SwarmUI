@@ -70,4 +70,10 @@ var routes = []route{
 		"/api/v1/project/{appId}/scale",
 		ServiceScale,
 	},
+	route{
+		"ServiceAutoScaling",
+		"POST",
+		"/api/v1/project/{appId}/autoscaling",
+		ServiceAutoScaling,
+	},
 }

@@ -38,6 +38,10 @@ var ProjectActions = Reflux.createActions([
     'projectScaleSuccess',
     'projectScaleFailure',
     
+    'projectAutoscaling',
+    'projectAutoscalingSuccess',
+    'projectAutoscalingFailure',
+    
     'createProject',
     'createProjectSuccess',
     'createProjectFailure',
@@ -88,7 +92,7 @@ ProjectActions.projectDefinition.preEmit = function(projectId){
 };
 
 ProjectActions.projectUp.preEmit = function(projectId, services = []){
-    Api.projectUp(projectId, {ServicesName: services})
+    Api.projectUp(projectId, {servicesName: services})
         .error(function(err){
             console.log(err);
             ProjectActions.projectUpFailure(err);
@@ -99,7 +103,7 @@ ProjectActions.projectUp.preEmit = function(projectId, services = []){
 };
 
 ProjectActions.projectStop.preEmit = function(projectId, services = []){
-    Api.projectStop(projectId, {ServicesName: services})
+    Api.projectStop(projectId, {servicesName: services})
         .error(function(err){
             console.log(err);
             ProjectActions.projectStopFailure(err);
@@ -110,7 +114,7 @@ ProjectActions.projectStop.preEmit = function(projectId, services = []){
 };
 
 ProjectActions.projectKill.preEmit = function(projectId, services = []){
-    Api.projectKill(projectId, {ServicesName: services})
+    Api.projectKill(projectId, {servicesName: services})
         .error(function(err){
             console.log(err);
             ProjectActions.projectKillFailure(err);
@@ -121,7 +125,7 @@ ProjectActions.projectKill.preEmit = function(projectId, services = []){
 };
 
 ProjectActions.projectDelete.preEmit = function(projectId, services = []){
-    Api.projectDelete(projectId, {ServicesName: services})
+    Api.projectDelete(projectId, {servicesName: services})
         .error(function(err){
             console.log(err);
             ProjectActions.projectDeleteFailure(err);
@@ -150,6 +154,17 @@ ProjectActions.projectScale.preEmit = function(projectId, servicesScale){
         })
         .then((result) => {
             ProjectActions.projectScaleSuccess(result);
+        });
+};
+
+ProjectActions.projectAutoscaling.preEmit = function(projectId, servicesScale){
+    Api.projectAutoscaling(projectId, servicesScale)
+        .error(function(err){
+            console.log(err);
+            ProjectActions.projectAutoscalingFailure(err);
+        })
+        .then((result) => {
+            ProjectActions.projectAutoscalingSuccess(result);
         });
 };
 

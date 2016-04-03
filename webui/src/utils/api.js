@@ -151,6 +151,21 @@ class Api {
                 });
         });
     }
+    
+    projectAutoscaling(projectId, servicesScale) {
+        return new Promise((resolve, reject) => {
+            request.post(this.httpPrefix + '/project/'+projectId+'/autoscaling')
+                .set('Accept', 'application/json')
+                .send(servicesScale)
+                .end(function (err, res) {
+                    if(err){
+                        reject(err);
+                    } else {
+                        resolve(res.body);
+                    }
+                });
+        });
+    }
 }
 
 export default new Api();

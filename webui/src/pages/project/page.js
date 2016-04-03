@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import ProjectActions from '../../actions/projectActions';
 import ProjectStore from '../../stores/projectStore';
 import { Link, browserHistory } from 'react-router';
@@ -19,7 +20,6 @@ import Tab from 'material-ui/lib/tabs/tab';
 import Toolbar from 'material-ui/lib/toolbar/toolbar';
 import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator';
 import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
-
 
 export default class ProjectPage extends React.Component {
     
@@ -66,45 +66,42 @@ export default class ProjectPage extends React.Component {
       ProjectActions.projectScale(this.props.params.projectId, this.state.services);
   }
   
+  autoscaling(type, serviceName, event){
+      if (event.target.value == "on"){
+          ProjectActions.projectAutoscaling(this.props.params.projectId, {serviceName: serviceName, scalingType: type});
+      }
+  }
+  
   printPorts(ports){
       let ret = "";
       if(ports){
           ports.forEach( (value) => {
-              ret += ' '+ value.PortHost + ' => '+ value.PortCont;
+              ret += ' '+ value.portHost + ' => '+ value.portCont;
           });
       }
       return ret;
   }
   
-  
-  handleChangeField(event){
-      var data = {};
-      data[event.target.id] = event.target.value;
-      this.setState(data);
-  }
-  
   handleChangeScale(event){
-      var data = this.state.services ? this.state.services : [];
-      data.push({
-         ServiceName: event.target.id,
-         Number: parseInt(event.target.value)
-      });
-      this.setState({services : data});
+      var data = this.state.mapServices ? this.state.mapServices : {};
+      data[event.target.id] = {
+         serviceName: event.target.id,
+         number: parseInt(event.target.value)
+      };
+      
+      this.setState({
+          mapServices: data,
+          services : _.values(data)
+        });
   }
   
   render() {
       var services = [];
-      var project = null;
       if(this.state && this.state.project){
-          services = this.state.project.Services;
-          project = JSON.stringify(this.state.project, null, 2);
+          services = this.state.project.services;
       }
       return (
         <div>
-            <FloatingActionButton mini={true} style={{marginTop: 10}} 
-                onClick={() => {browserHistory.push('/project');}}>
-                <ContentBack />
-            </FloatingActionButton>
             <center><h1 style={{marginBottom: 30}}>{this.props.params.projectId}</h1></center>
              <Toolbar>   
                 <ToolbarGroup firstChild={true} float="left">
@@ -125,11 +122,13 @@ export default class ProjectPage extends React.Component {
             
                 <div>
                 {services.map(value => (
-                    <div key={value.ServiceName}>
-                        <h2>{value.ServiceName}</h2>
+                    <div key={value.serviceName}>
+                        <h2>{value.serviceName}</h2>
                         <div>
                             Scale : &nbsp;
-                            <input type="number" id={value.ServiceName} onChange={ (event) => {this.handleChangeScale(event)}}></input>
+                            <input type="number" id={value.serviceName} onChange={ (event) => {this.handleChangeScale(event)}}></input>
+                            <input type="checkbox" onChange={ (event) => {this.autoscaling("auto", value.serviceName,event)}}>Autoscaling</input>
+                            <input type="checkbox" onChange={ (event) => {this.autoscaling("node", value.serviceName, event)}}>Nodescaling</input>
                         </div>
                         <br />
                         <Table>
@@ -141,11 +140,11 @@ export default class ProjectPage extends React.Component {
                             </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {value.Containers ? value.Containers.map(value => (
-                                    <TableRow key={value.ContainerName}>
-                                        <TableRowColumn>{value.ContainerName}</TableRowColumn>
-                                        <TableRowColumn>{value.IsRunning ? "true" : "false"}</TableRowColumn>
-                                        <TableRowColumn>{this.printPorts(value.Port)}</TableRowColumn>
+                                {value.containers ? value.containers.map(value => (
+                                    <TableRow key={value.containerName}>
+                                        <TableRowColumn>{value.containerName}</TableRowColumn>
+                                        <TableRowColumn>{value.isRunning ? "true" : "false"}</TableRowColumn>
+                                        <TableRowColumn>{this.printPorts(value.port)}</TableRowColumn>
                                     </TableRow>
                                 )) : ""}
                             </TableBody>
@@ -153,6 +152,10 @@ export default class ProjectPage extends React.Component {
                     </div>
                 ))}
             </div>
+            <FloatingActionButton mini={true} style={{marginTop: 10}} 
+                onClick={() => {browserHistory.push('/project');}}>
+                <ContentBack />
+            </FloatingActionButton>
         </div>
       ); 
   }

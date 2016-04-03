@@ -34,7 +34,7 @@ app.get('/style.css', (req, res) => {
 });
 
 app.all("/api/*", function(req, res){ 
-  apiProxy.web(req, res, { target: 'http://localhost:3000' });
+  apiProxy.web(req, res, { target: 'http://localhost:8080' });
 });
 
 // Serve index page
