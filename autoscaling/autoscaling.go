@@ -98,6 +98,16 @@ func autoScaling(service ScalingService, quit <-chan struct{}){
     mapCPUUsage := make(map[string]float64)
     statsChannel := make(chan utils.Stat)
     
+    if service.AutoScalingConf == nil {
+        service.AutoScalingConf = new(AutoScalingConfig)
+        service.AutoScalingConf.MaxCPUUsage = 70
+        service.AutoScalingConf.MinCPUUsage = 15
+        service.AutoScalingConf.MinNumber = 1
+        service.AutoScalingConf.MaxNumber = 5
+    }
+    
+    log.WithField("AutoScalingConfig", service.AutoScalingConf).Info("Auto scaling config")
+    
     //Watch containers (for their stats)
     watchContainers(service, mapWatchContainer, statsChannel)
     
@@ -129,11 +139,13 @@ func autoScaling(service ScalingService, quit <-chan struct{}){
                             cpt++
                         }
                         globalCPUUsage = globalCPUUsage / cpt
-                        if globalCPUUsage >= 0.50 {
+                        if globalCPUUsage >= service.AutoScalingConf.MaxCPUUsage && 
+                            service.containerNumber < service.AutoScalingConf.MaxNumber{
                             service.service.Scale(service.containerNumber+1)
                             service.containerNumber = service.containerNumber+1
                             log.Info("Scaling up service ", service.ServiceName)
-                        } else if globalCPUUsage <= 0.15 && service.containerNumber > 1{
+                        } else if globalCPUUsage <= service.AutoScalingConf.MinCPUUsage && 
+                            service.containerNumber > service.AutoScalingConf.MinNumber{
                             service.service.Scale(service.containerNumber-1)
                             service.containerNumber = service.containerNumber-1
                             log.Info("Scaling down service ", service.ServiceName)
