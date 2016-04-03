@@ -1,3 +1,4 @@
+//Package api hold the REST API of the Swarm UI project
 package api
 
 import (

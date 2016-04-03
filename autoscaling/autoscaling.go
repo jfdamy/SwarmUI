@@ -1,3 +1,4 @@
+//Package autoscaling hold the auto scaling service of Swarm UI project
 package autoscaling
 import (
     "time"
