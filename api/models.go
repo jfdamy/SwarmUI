@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/docker/libcompose/project"
+	"github.com/docker/libcompose/config"
 )
 
 type projectInfo struct {
@@ -12,7 +12,7 @@ type projectInfo struct {
 type serviceInfo struct {
 	ServiceName string                 `json:"serviceName"`
 	Containers  []containerInfo        `json:"containers"`
-	Config      *project.ServiceConfig `json:"config"`
+	Config      *config.ServiceConfig `json:"config"`
 }
 
 //containerInfo is a data model for the info of a project

@@ -8,7 +8,9 @@ import (
     "strconv"
     "encoding/json"
     
+    "golang.org/x/net/context"
 	log "github.com/Sirupsen/logrus"
+    
     "github.com/jfdamy/swarmui/utils"
 )
 
@@ -22,7 +24,7 @@ func nodeScaling(service ScalingService, quit <-chan struct{}){
                 log.Debug("Scaling service ", service.ServiceName, " exited")
                 return
             default:
-                info, _ := utils.ClientFactory.Create(nil).Info()
+                info, _ := utils.ClientFactory.Create(nil).Info(context.Background())
                 if info.DriverStatus[3][0][1:len(info.DriverStatus[3][0])] == "Nodes" {
                     scaleTo, err := strconv.Atoi(info.DriverStatus[3][1])
                     if err == nil {

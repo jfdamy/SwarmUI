@@ -102,7 +102,8 @@ func ProjectShow(w http.ResponseWriter, r *http.Request) {
 
 			projInfo.ProjectID = appID
 
-			for name, config := range proj.Configs {
+			for _, name := range proj.Configs.Keys() {
+                config, _ := proj.Configs.Get(name)
 				service, _ := proj.CreateService(name)
 				containers, _ := service.Containers()
 			    var containersInfo []containerInfo
