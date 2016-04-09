@@ -1,4 +1,5 @@
 [![GoDoc](https://godoc.org/github.com/jfdamy/SwarmUI?status.svg)](https://godoc.org/github.com/jfdamy/SwarmUI)
+[![travis](https://travis-ci.org/jfdamy/SwarmUI.svg?branch=master)](https://travis-ci.org/jfdamy/SwarmUI.svg?branch=master)
 
 # swarmui
 
