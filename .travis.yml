@@ -16,6 +16,8 @@ before_script:
 - npm install --prefix ./webui
 after_success:
 - CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
+- ls -la
+- ls -la webui/build
 - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
 - export REPO=jfdamy/swarmui
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH

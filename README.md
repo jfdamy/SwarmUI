@@ -11,7 +11,7 @@ Two autoscaling type :
     - By node number of contianer of your service = number of node (nice for logging, monitoring, etc)
     - By CPU consumption with the limit to scale up and down (eg: 15% - 70%) and the min and max containers
 
-I spent 3 hours on this project (i don't have a lot a spare time), it's a pet project.
+I spent a few hours on this project (i don't have a lot a spare time), it's a pet project.
 So yes the code is ugly, yes i didn't use redux with react, yes the webui is ugly as hell.
 But it's just the beginning so please be gentle and if something is too ugly for you, you can just contribute it ;)
 
