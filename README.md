@@ -23,6 +23,11 @@ But it's just the beginning so please be gentle and if something is too ugly for
 ![Alt text](/doc/img/3.png?raw=true "Manage a project")
 ![Alt text](/doc/img/4.png?raw=true "Edit a project (with docker compose file)")
 
+#Run with docker
+- launch etcd https://coreos.com/etcd/docs/latest/docker_guide.html 
+- docker run -it -p 8080:8080 -e SWARMUI_KV_HOST="IP_ETCD:4001" -e SWARMUI_KV_STORE=etcd -v /var/run/docker.sock:/var/run/docker.sock jfdamy/swarmui /swarmui s
+- docker run -it -e SWARMUI_KV_HOST="IP_ETCD:4001" -e SWARMUI_KV_STORE=etcd -v /var/run/docker.sock:/var/run/docker.sock jfdamy/swarmui /swarmui a
+
 #Run the api and the webui
 - run npm run build in webui directory
 - export SWARMUI_KV_STORE=etcd (etcd, consul, zk)
