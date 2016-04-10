@@ -76,4 +76,10 @@ var routes = []route{
 		"/api/v1/project/{appId}/autoscaling",
 		ServiceAutoScaling,
 	},
+	route{
+		"ServiceRemoveAutoScaling",
+		"DELETE",
+		"/api/v1/project/{appId}/autoscaling",
+		ServiceRemoveAutoScaling,
+	},
 }

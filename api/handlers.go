@@ -471,3 +471,28 @@ func ServiceAutoScaling(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 }
+
+// ServiceRemoveAutoScaling remove the autoscaling
+func ServiceRemoveAutoScaling(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	var err error
+
+	appID := vars["appId"]
+    
+    err = utils.RemoveAutoscalingProject(appID)
+    
+    w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+    
+    if err == nil{
+        w.WriteHeader(http.StatusOK)
+        if err := json.NewEncoder(w).Encode(jsonErr{Code: http.StatusOK, Text: "OK"}); err != nil {
+            panic(err)
+        }
+    } else {
+        w.WriteHeader(http.StatusNotFound)
+        if err := json.NewEncoder(w).Encode(jsonErr{Code: http.StatusNotFound, Text: err.Error()}); err != nil {
+            panic(err)
+        }
+    }
+}

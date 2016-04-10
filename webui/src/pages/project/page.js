@@ -67,8 +67,10 @@ export default class ProjectPage extends React.Component {
   }
   
   autoscaling(type, serviceName, event){
-      if (event.target.value == "on"){
+      if (event.target.checked){
           ProjectActions.projectAutoscaling(this.props.params.projectId, {serviceName: serviceName, scalingType: type});
+      } else {
+          ProjectActions.projectRemoveAutoscaling(this.props.params.projectId);
       }
   }
   

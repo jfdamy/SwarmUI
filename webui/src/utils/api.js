@@ -166,6 +166,20 @@ class Api {
                 });
         });
     }
+    
+    projectRemoveAutoscaling(projectId) {
+        return new Promise((resolve, reject) => {
+            request.delete(this.httpPrefix + '/project/'+projectId+'/autoscaling')
+                .set('Accept', 'application/json')
+                .end(function (err, res) {
+                    if(err){
+                        reject(err);
+                    } else {
+                        resolve(res.body);
+                    }
+                });
+        });
+    }
 }
 
 export default new Api();

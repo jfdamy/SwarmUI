@@ -113,6 +113,11 @@ func GetAutoscalingProject(projectID string) (*store.KVPair, error) {
     return KvStore.Get("/swarmui/autoscaling/"+projectID)
 }
 
+//RemoveAutoscalingProject remove autoscaling projects
+func RemoveAutoscalingProject(projectID string) error {
+    return KvStore.Delete("/swarmui/autoscaling/"+projectID)
+}
+
 //GetListAutoscalingProjects get autoscaling projects from kv store
 func GetListAutoscalingProjects() ([] *store.KVPair, error) {
     return KvStore.List("/swarmui/autoscaling/")

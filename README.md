@@ -46,5 +46,6 @@ But it's just the beginning so please be gentle and if something is too ugly for
 
 - Produce some Documentation
 - Load Balancer for services
+- Job scheduler
 - A version of the api and the bus event in proto buf, thrift, ... (i don't know yet)
 - Cleanup a litle bit the source code

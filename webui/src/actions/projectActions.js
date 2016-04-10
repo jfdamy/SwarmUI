@@ -42,6 +42,10 @@ var ProjectActions = Reflux.createActions([
     'projectAutoscalingSuccess',
     'projectAutoscalingFailure',
     
+    'projectRemoveAutoscaling',
+    'projectRemoveAutoscalingSuccess',
+    'projectRemoveAutoscalingFailure',
+    
     'createProject',
     'createProjectSuccess',
     'createProjectFailure',
@@ -165,6 +169,17 @@ ProjectActions.projectAutoscaling.preEmit = function(projectId, servicesScale){
         })
         .then((result) => {
             ProjectActions.projectAutoscalingSuccess(result);
+        });
+};
+
+ProjectActions.projectRemoveAutoscaling.preEmit = function(projectId){
+    Api.projectRemoveAutoscaling(projectId)
+        .error(function(err){
+            console.log(err);
+            ProjectActions.projectRemoveAutoscalingFailure(err);
+        })
+        .then((result) => {
+            ProjectActions.projectRemoveAutoscalingSuccess(result);
         });
 };
 
